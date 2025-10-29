@@ -1,0 +1,60 @@
+{% extends 'main_app/dashboard_base.html' %}
+
+        {% block content  %}
+        {% load static %}
+
+        <div class="content-body">
+            <!-- row -->
+            <div class="container-fluid">
+                <!DOCTYPE html>
+                <html lang="en">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>Add Course - My LMS</title>
+                    <!-- Bootstrap CSS -->
+                    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+                    <!-- Custom CSS -->
+                    <link rel="stylesheet" href="styles.css">
+                </head>
+                <body>
+                    <div class="container mt-5">
+                        <h2>Add Course</h2>
+                        <form>
+                            <div class="form-group">
+                                <label for="title">Course Title</label>
+                                <input type="text" class="form-control" id="title" placeholder="Enter course title" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="description">Course Description</label>
+                                <textarea class="form-control" id="description" rows="3" placeholder="Enter course description" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="category">Category</label>
+                                <select class="form-control" id="category" required>
+                                    <option value="" selected disabled>Select category</option>
+                                    <option value="technology">Technology</option>
+                                    <option value="business">Business</option>
+                                    <option value="arts">Arts</option>
+                                    <!-- Add more options as needed -->
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="price">Price</label>
+                                <input type="number" class="form-control" id="price" placeholder="Enter course price" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Add Course</button>
+                        </form>
+                    </div>
+                
+                    <!-- Bootstrap JS and dependencies -->
+                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+                    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+                </body>
+                </html>
+                
+            </div>
+        </div>
+        {% endblock %}
+        

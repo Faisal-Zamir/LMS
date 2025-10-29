@@ -1,0 +1,149 @@
+{% extends 'main_app/dashboard_base.html' %}
+
+        {% block content  %}
+        {% load static %}
+        <head>
+            <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Bootstrap JS Bundle (includes Popper.js) -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+        <style>
+          
+            .card-style1 {
+                box-shadow: 0px 0px 10px 0px rgb(89 75 128 / 9%);
+            }
+            .border-0 {
+                border: 0!important;
+            }
+            .card {
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                min-width: 0;
+                word-wrap: break-word;
+                background-color: #fff;
+                background-clip: border-box;
+                border: 1px solid rgba(0,0,0,.125);
+                border-radius: 0.25rem;
+            }
+
+            section {
+                padding: 120px 0;
+                overflow: hidden;
+                background: #fff;
+            }
+            .mb-2-3, .my-2-3 {
+                margin-bottom: 2.3rem;
+            }
+
+            .section-title {
+                font-weight: 600;
+                letter-spacing: 2px;
+                text-transform: uppercase;
+                margin-bottom: 10px;
+                position: relative;
+                display: inline-block;
+            }
+            .text-primary {
+                color: #ceaa4d !important;
+            }
+            .text-secondary {
+                color: #15395A !important;
+            }
+            .font-weight-600 {
+                font-weight: 600;
+            }
+            .display-26 {
+                font-size: 1.3rem;
+            }
+
+            @media screen and (min-width: 992px){
+                .p-lg-7 {
+                    padding: 4rem;
+                }
+            }
+            @media screen and (min-width: 768px){
+                .p-md-6 {
+                    padding: 3.5rem;
+                }
+            }
+            @media screen and (min-width: 576px){
+                .p-sm-2-3 {
+                    padding: 2.3rem;
+                }
+            }
+            .p-1-9 {
+                padding: 1.9rem;
+            }
+
+            .bg-secondary {
+                background: #15395A !important;
+            }
+            @media screen and (min-width: 576px){
+                .pe-sm-6, .px-sm-6 {
+                    padding-right: 3.5rem;
+                }
+            }
+            @media screen and (min-width: 576px){
+                .ps-sm-6, .px-sm-6 {
+                    padding-left: 3.5rem;
+                }
+            }
+            .pe-1-9, .px-1-9 {
+                padding-right: 1.9rem;
+            }
+            .ps-1-9, .px-1-9 {
+                padding-left: 1.9rem;
+            }
+            .pb-1-9, .py-1-9 {
+                padding-bottom: 1.9rem;
+            }
+            .pt-1-9, .py-1-9 {
+                padding-top: 1.9rem;
+            }
+            .mb-1-9, .my-1-9 {
+                margin-bottom: 1.9rem;
+            }
+            @media (min-width: 992px){
+                .d-lg-inline-block {
+                    display: inline-block!important;
+                }
+            }
+            .rounded {
+                border-radius: 0.25rem!important;
+            }
+        </style>
+        </head>
+            <!-- Custom CSS -->
+            <div class="content-body">
+            
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6 mb-4 mb-lg-0">
+                            <img src="{{ request.user.profile.profile_picture.url }}" alt="..." class="img-fluid profile-picture">
+                        </div>
+                        <div class="col-lg-6">
+                            <ul class="list-unstyled">
+                                <li class="mb-3"><span class="fw-bold">Name:</span> {{ request.user.first_name }} {{ request.user.last_name }}</li>
+                                <li class="mb-3"><span class="fw-bold">Country:</span> {{ request.user.profile.country }}</li>
+                                <li class="mb-3"><span class="fw-bold">Email:</span> {{ request.user.email }}</li>
+                                <li class="mb-3"><span class="fw-bold">Gender:</span> {{ request.user.profile.gender }}</li>
+                                <li><span class="fw-bold">Address:</span> {{ request.user.profile.address }}</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-lg-12">
+                            <div>
+                                <span class="section-title text-primary mb-3">About Me</span>
+                                <p>{{ request.user.profile.about_me }}</p>
+                            </div>
+                            <a href="{% url 'setting' %}" role="button" class="btn btn-primary mt-2">Edit Profile</a>
+                        </div>
+                    </div>
+                </div>
+                
+    </div>
+        {% endblock %}
+        

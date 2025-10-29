@@ -1,0 +1,205 @@
+<div class=" vertical-scroll" id="courseSidebar">
+
+    <div class="border rounded mb-6 @@widgetBG">
+        <!-- Heading -->
+        <div id="coursefilter1">
+            <h4 class="mb-0">
+                <button class="p-6 text-dark fw-medium d-flex align-items-center collapse-accordion-toggle line-height-one" type="button" data-bs-toggle="collapse" data-bs-target="#coursefiltercollapse1" aria-expanded="true" aria-controls="coursefiltercollapse1">
+                    Category
+                    <span class="ms-auto text-dark d-flex">
+                        <!-- Icon -->
+                        <svg width="15" height="2" viewBox="0 0 15 2" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="15" height="2" fill="currentColor"/>
+                        </svg>
+
+                        <svg width="15" height="16" viewBox="0 0 15 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M0 7H15V9H0V7Z" fill="currentColor"/>
+                            <path d="M6 16L6 8.74228e-08L8 0L8 16H6Z" fill="currentColor"/>
+                        </svg>
+
+                    </span>
+                </button>
+            </h4>
+        </div>
+
+        <div id="coursefiltercollapse1" class="collapse show pb-3" aria-labelledby="coursefilter1" data-parent="#courseSidebar">
+            <ul class="list-unstyled">
+                {% for cat in categories %}
+                <li class="list-group-item py-2">
+                    <a href="{% url 'category_course' cat.id %}" class="text-decoration-none">{{ cat.name }}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+
+    <div class="border rounded mb-6 @@widgetBG">
+        <!-- Heading -->
+        <div id="coursefilter3">
+            <h4 class="mb-0">
+                <button class="p-6 text-dark fw-medium d-flex align-items-center collapse-accordion-toggle line-height-one" type="button" data-bs-toggle="collapse" data-bs-target="#coursefiltercollapse3" aria-expanded="true" aria-controls="coursefiltercollapse3">
+                    Price
+                    <span class="ms-auto text-dark d-flex">
+                        <!-- Icon -->
+                        <svg width="15" height="2" viewBox="0 0 15 2" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="15" height="2" fill="currentColor"/>
+                        </svg>
+
+                        <svg width="15" height="16" viewBox="0 0 15 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M0 7H15V9H0V7Z" fill="currentColor"/>
+                            <path d="M6 16L6 8.74228e-08L8 0L8 16H6Z" fill="currentColor"/>
+                        </svg>
+
+                    </span>
+                </button>
+            </h4>
+        </div>
+
+        <div id="coursefiltercollapse3" class="collapse show pb-3" aria-labelledby="coursefilter1" data-parent="#courseSidebar">
+            <ul class="list-unstyled">
+             
+                <li class="list-group-item py-2">
+                    <a href="{% url 'courses' %}" class="text-decoration-none">All</a>
+                </li>
+                <li class="list-group-item py-2">
+                    <a href="{% url 'courses' %}?free" class="text-decoration-none">Free</a>
+                </li>
+                <li class="list-group-item py-2">
+                    <a href="{% url 'courses' %}?paid" class="text-decoration-none">Paid</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="border rounded mb-6 @@widgetBG">
+        <!-- Heading -->
+        <div id="coursefilter4">
+            <h4 class="mb-0">
+                <button class="p-6 text-dark fw-medium d-flex align-items-center collapse-accordion-toggle line-height-one" type="button" data-bs-toggle="collapse" data-bs-target="#coursefiltercollapse4" aria-expanded="true" aria-controls="coursefiltercollapse4">
+                    Level
+                    <span class="ms-auto text-dark d-flex">
+                        <!-- Icon -->
+                        <svg width="15" height="2" viewBox="0 0 15 2" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="15" height="2" fill="currentColor"/>
+                        </svg>
+
+                        <svg width="15" height="16" viewBox="0 0 15 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M0 7H15V9H0V7Z" fill="currentColor"/>
+                            <path d="M6 16L6 8.74228e-08L8 0L8 16H6Z" fill="currentColor"/>
+                        </svg>
+
+                    </span>
+                </button>
+            </h4>
+        </div>
+
+        <div id="coursefiltercollapse4" class="collapse show pb-3" aria-labelledby="coursefilter1" data-parent="#courseSidebar">
+            <ul class="list-unstyled">
+             
+                <li class="list-group-item py-2">
+                    <a href="{% url 'courses' %}?level=Beginner" class="text-decoration-none">Beginner</a>
+                </li>
+                <li class="list-group-item py-2">
+                    <a href="{% url 'courses' %}?level=Intermediate" class="text-decoration-none">Intermediate</a>
+                </li>
+                <li class="list-group-item py-2">
+                    <a href="{% url 'courses' %}?level=Advanced" class="text-decoration-none">Advanced</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- <div class="border rounded mb-6 @@widgetBG"> -->
+        <!-- Heading -->
+        <!-- <div id="coursefilter5">
+            <h4 class="mb-0">
+                <button class="p-6 text-dark fw-medium d-flex align-items-center collapse-accordion-toggle line-height-one" type="button" data-bs-toggle="collapse" data-bs-target="#coursefiltercollapse5" aria-expanded="true" aria-controls="coursefiltercollapse5">
+                    Rating
+                    <span class="ms-auto text-dark d-flex">
+                  
+                        <svg width="15" height="2" viewBox="0 0 15 2" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="15" height="2" fill="currentColor"/>
+                        </svg>
+
+                        <svg width="15" height="16" viewBox="0 0 15 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M0 7H15V9H0V7Z" fill="currentColor"/>
+                            <path d="M6 16L6 8.74228e-08L8 0L8 16H6Z" fill="currentColor"/>
+                        </svg>
+
+                    </span>
+                </button>
+            </h4>
+        </div> -->
+
+        <!-- <div id="coursefiltercollapse5" class="collapse show pb-3" aria-labelledby="coursefilter1" data-parent="#courseSidebar">
+            <ul class="list-unstyled list-group list-checkbox">
+                <!-- Four star -->
+                <!-- <li class="list-group-item py-2">
+                    <a href="{% url 'courses' %}?level=fourstar" class="text-decoration-none">
+                        <span class="d-flex align-items-end">
+                            <span class="star-rating">
+                                <span class="rating" style="width:80%;"></span>
+                                <span class="star" style="width:20%; background-color: gold;"></span>
+                            </span>
+            
+                            <span class="ms-3">
+                                <span>& up</span>
+                            </span>
+                        </span>
+                    </a>
+                </li> -->
+            
+                <!-- Three star -->
+                <!-- <li class="list-group-item py-2">
+                    <a href="{% url 'courses' %}?level=threestar" class="text-decoration-none">
+                        <span class="d-flex align-items-end">
+                            <span class="star-rating">
+                                <span class="rating" style="width:60%;"></span>
+                                <span class="star" style="width:40%; background-color: gold;"></span>
+                            </span>
+            
+                            <span class="ms-3">
+                                <span>& up</span>
+                            </span>
+                        </span>
+                    </a>
+                </li> -->
+            
+                <!-- Two star -->
+                <!-- <li class="list-group-item py-2">
+                    <a href="{% url 'courses' %}?level=twostar" class="text-decoration-none">
+                        <span class="d-flex align-items-end">
+                            <span class="star-rating">
+                                <span class="rating" style="width:40%;"></span>
+                                <span class="star" style="width:60%; background-color: gold;"></span>
+                            </span>
+            
+                            <span class="ms-3">
+                                <span>& up</span>
+                            </span>
+                        </span>
+                    </a>
+                </li> -->
+            
+                <!-- One star -->
+                <!-- <li class="list-group-item py-2">
+                    <a href="{% url 'courses' %}?level=onestar" class="text-decoration-none">
+                        <span class="d-flex align-items-end">
+                            <span class="star-rating">
+                                <span class="rating" style="width:20%;"></span>
+                                <span class="star" style="width:80%; background-color: gold;"></span>
+                            </span>
+            
+                            <span class="ms-3">
+                                <span>& up</span>
+                            </span>
+                        </span>
+                    </a>
+                </li> -->
+            <!-- </ul> -->
+            
+            
+        <!-- </div>  -->
+    <!-- </div> -->
+</div>

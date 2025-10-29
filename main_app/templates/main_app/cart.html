@@ -1,0 +1,141 @@
+
+{% extends 'main_app/base.html' %}
+
+{% block content %}
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart Page</title>
+    <style>
+        /* Custom Styles */
+        .course-details {
+            background-color: #f9f9f9;
+            padding: 20px;
+        }
+        .coupon-section {
+            padding: 20px;
+        }
+        @media (min-width: 768px) {
+            .course-details {
+                padding: 40px;
+            }
+            .coupon-section {
+                padding: 40px;
+            }
+        }
+    </style>
+    </head>
+    <body>
+    
+    <div class="container pb-6 pb-xl-10">
+        <div class="row">
+            <!-- Courses Details Column -->
+            <div class="col-md-6 course-details">
+                <h3>Your Courses</h3>
+                <div class="container">
+                    <div class="row">
+                        {% for cart_item in user_cart_items %}
+                            {% for course in cart_item.courses.all %}
+                                <div class="col-md-12 mb-4">
+                                    <div class="card">
+                                        <div class="row g-0">
+                                            <div class="col-md-4">
+                                                <img src="{{ course.image.url }}" class="card-img-top" alt="{{ course.title }}" style="max-width: 100%; height: auto;">
+                                            </div>
+                                            <div class="col-md-8">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">{{ course.title }}</h5>
+                                                    <p class="card-text">${{ course.offer_price }}</p>
+                                                </div>
+                                                <a href="{% url 'remove_from_cart' %}" class="btn btn-danger remove-from-cart" data-course-id="{{ course.id }}" style="position: absolute; top: 0; right: 0;">
+                                                    <i class="fas fa-times fa-sm"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% endfor %}
+                    </div>
+                    
+                    
+                    
+                    <script>
+                        $(document).ready(function() {
+                            // Click event handler for Remove from Cart button
+                            $(document).on('click', '.remove-from-cart', function(e) {
+                                e.preventDefault();
+                                var courseId = $(this).data('course-id');
+                                var card = $(this).closest('.col-md-12'); // Reference to the course card
+                    
+                                $.ajax({
+                                    type: 'POST',
+                                    url: '{% url "remove_from_cart" %}',
+                                    data: {
+                                        'course_id': courseId,
+                                        'csrfmiddlewaretoken': '{{ csrf_token }}'
+                                    },
+                                    success: function(data) {
+                                        if (data.success) {
+                                            // Remove the course card from the DOM
+                                            card.remove();
+                                            alert('Course removed from cart successfully.');
+                                        } else {
+                                            alert('Failed to remove course from cart: ' + data.message);
+                                        }
+                                    },
+                                    error: function(xhr, status, error) {
+                                        alert('Failed to remove course from cart: ' + error);
+                                    }
+                                });
+                            });
+                        });
+                    </script>
+                    
+                    
+                    
+                    
+                    
+                </div>
+                
+                
+            </div>
+            
+    
+            <!-- Coupon Code and Totals Column -->
+            <div class="col-md-6 coupon-section">
+                <h3>Apply Coupon Code</h3>
+          
+                <div class="coupon">
+                    <form action="#" method="post">
+                        <label for="coupon_code">Coupon:</label>
+                        <input type="text" name="coupon_code" class="form-control" id="coupon_code" value="" placeholder="Coupon code" autocomplete="off">
+                        <button type="submit" class="btn btn-primary mt-2">Apply Coupon</button>
+                    </form>
+                </div>
+                <div class="cart-totals mt-4">
+                    <h3>Cart Totals</h3>
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <th scope="row">Subtotal</th>
+                                <td>${{ subtotal }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Total</th>
+                                <td>${{ total }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="wc-proceed-to-checkout">
+                        <a href="{% url 'checkout' %}" class="btn btn-primary btn-block">Proceed to Checkout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    </body>
+    {% endblock %}
+

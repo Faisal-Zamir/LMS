@@ -1,0 +1,324 @@
+
+{% extends 'main_app/base.html' %}
+
+{% block content %}
+{% load static %}
+
+
+    <!-- CONTROL BAR
+    ================================================== -->
+    <div class="container mb-6 mb-xl-8 z-index-2">
+        <div class="d-lg-flex align-items-center mb-6 mb-xl-0">
+            <p class="mb-lg-0">We found <span class="text-dark">{{total_courses_on_page}} courses</span> available for you</p>
+            <div class="ms-lg-auto d-lg-flex flex-wrap">
+                <div class="mb-4 mb-lg-0 ms-lg-6">
+                    <div class="border rounded d-flex align-items-center choices-label h-50p">
+                        <span class="ps-5">Sort by:</span>
+                        <select class="form-select form-select-sm text-dark border-0 ps-1 bg-transparent flex-grow-1 shadow-none dropdown-menu-end" data-choices>
+                            <option>Default</option>
+                            <option>New Courses</option>
+                            <option>Price Low to High</option>
+                            <option>Price High to low</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- COURSE LIST V2
+    ================================================== -->
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-4 mb-5 mb-xl-0">
+                <!-- SIDEBAR FILTER
+                ================================================== -->
+                {% include 'courses/courses_sidebar.html' %}
+
+          
+            </div>
+
+            <div class="col-xl-8">
+                <div class="row row-cols-md-2 mb-3 ">
+                  
+                    {% for course in courses %}
+
+                    <div class="col-md pb-4 pb-md-7">
+                        <!-- Card -->
+                        <div class="card border shadow p-2 lift sk-fade">
+                            <!-- Image -->
+                            <div class="card-zoom position-relative">
+                                <div class="badge-float sk-fade-top top-0 right-0 mt-4 me-4">
+                                    <a href="course-single-v5.html" class="btn btn-xs btn-dark text-white rounded-circle lift opacity-dot-7 me-1 p-2 d-inline-flex justify-content-center align-items-center w-36 h-36">
+                                        <!-- Icon -->
+                                        <svg width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+                                            <!-- Icon path -->
+                                        </svg>
+                                    </a>
+                                    <a href="course-single-v5.html" class="btn btn-xs btn-dark text-white rounded-circle lift opacity-dot-7 p-2 d-inline-flex justify-content-center align-items-center w-36 h-36">
+                                        <!-- Icon -->
+                                        <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                                            <!-- Icon path -->
+                                        </svg>
+                                    </a>
+                                </div>
+                    
+                            
+                                <a href="{% url 'course_view' course.id %}" class="card-img sk-thumbnail d-block" data-course-id="{{ course.id }}">
+                                    <img class="rounded shadow-light-lg" src="{{ course.image.url }}" alt="...">
+                                </a>
+                                <span class="badge sk-fade-bottom badge-lg badge-orange badge-pill badge-float bottom-0 left-0 mb-4 ms-4">
+                                    <span class="text-white text-uppercase fw-bold font-size-xs">BEST SELLER</span>
+                                </span>
+                            </div>
+                    
+                            <!-- Footer -->
+                            <div class="card-footer px-2 pb-2 mb-1 pt-4 position-relative">
+                                <a href="instructors-single.html" class="d-block">
+                                    <div class="avatar sk-fade-right avatar-xl badge-float position-absolute top-0 right-0 mt-n6 me-5 rounded-circle shadow border border-white border-w-lg">
+                                       
+                                            <img src="{% static 'assets/img/faisal zamir instructor.png' %}" alt="Superuser Profile Picture" class="avatar-img rounded-circle">
+                                     
+                                                                  </div>
+                                </a>
+                    
+                                <!-- Preheading -->
+                                <a href="{% url 'category_course' course.category.id %}"><span class="mb-1 d-inline-block text-gray-800">{{course.category}}</span></a>
+                    
+                                <!-- Heading -->
+                                <div class="position-relative">
+                                    <a href="{% url 'course_view' course.id %}" class="d-block stretched-link"><h4 class="line-clamp-2 h-md-48 h-lg-58 me-md-6 me-lg-10 me-xl-4 mb-2">{{course.title}}</h4></a>
+                    
+                                    <div class="d-lg-flex align-items-end flex-wrap mb-n1">
+                                        <!-- <div class="star-rating mb-2 mb-lg-0 me-lg-3">
+                                            <div class="rating" style="width:50%;"></div>
+                                        </div> -->
+                    
+                                        <div class="font-size-sm">
+                                            <span>{{ course.course_review }} <i class="fas fa-star" style="color: gold;"></i> reviews</span>
+                                        </div>
+                                    </div>
+                    
+                                    <div class="row mx-n2 align-items-end">
+                                        <div class="col px-2">
+                                            <ul class="nav mx-n3">
+                                                <li class="nav-item px-3">
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="me-2 d-flex icon-uxs text-secondary">
+                                                            <!-- Icon -->
+                                                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                <!-- Icon path -->
+                                                            </svg>
+                    
+                                                        </div>
+                                                        <div class="font-size-sm">{{course.total_lectures}} lessons</div>
+                                                    </div>
+                                                </li>
+                                                <li class="nav-item px-3">
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="me-2 d-flex icon-uxs text-secondary">
+                                                            <!-- Icon -->
+                                                            <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                                                                <!-- Icon path -->
+                                                            </svg>
+                    
+                                                        </div>
+                                                        <div class="font-size-sm">{{course.duration}} (h,m)</div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                    
+                                        <div class="col-auto px-2 text-right">
+                                            <del class="font-size-sm">${{course.orignal_price}}</del>
+                                            <ins class="h4 mb-0 d-block mb-lg-n1">${{course.offer_price}}</ins>
+                                        </div>
+                                    </div>
+                                </div>
+                    
+                                <!-- Buy Now Button -->
+                                {% if course.id in cart_courses %}
+                                <a href="{% url 'remove_from_cart' %}" role="button" data-course-id="{{ course.id }}" class="btn btn-primary remove-from-cart-btn">Remove from Cart</a>
+
+                                {% else %}
+                                <a href="{% url 'add_to_cart' %}" role="button" data-course-id="{{ course.id }}" class="btn btn-primary add-to-cart-btn">Add to Cart</a>
+
+                            {% endif %}
+                            </div>
+                        </div>
+                    </div>
+   
+             
+
+                    
+                    {% endfor %}
+ <!-- Add this script to your HTML file -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+ $(document).ready(function() {
+    function fetchCartItems() {
+        $.ajax({
+            type: 'POST',
+            url: '{% url "fetch_cart_items" %}',
+            dataType: 'json',
+            data: {
+                csrfmiddlewaretoken: '{{ csrf_token }}'
+            },
+            success: function(data) {
+                updateCartItems(data.cart_items);
+            },
+            error: function(xhr, status, error) {
+                console.error('Error fetching cart items:', error);
+            }
+        });
+    }
+
+ // Function to update the cart container with fetched items
+function updateCartItems(cartItems) {
+    var container = $('.cart-items-container'); // Use a specific class for the cart items container
+
+    // Clear existing items
+    container.empty();
+
+    // Iterate through cart items and append them to the container
+    $.each(cartItems, function(index, cartItem) {
+        var listItem = $('<li class="list-group-item border-bottom py-0"></li>');
+        var content = `
+            <div class="d-flex py-5">
+                <a href="#">
+                    <img src="${cartItem.image}" class="rounded-circle overflow-hidden" width="60" height="60" alt="${cartItem.title}">
+                </a>
+                <div class="flex-grow-1 mt-1 ms-4">
+                    <a href="#" class="text-decoration-none">
+                        <h6 class="fw-normal mb-0">${cartItem.title}</h6>
+                    </a>
+                    <div class="font-size-sm">$${cartItem.price}</div>
+                </div>
+                <button class="btn btn-link text-danger remove-from-cart" data-cart-item-id="${cartItem.id}">
+                    <!-- Your remove icon goes here -->
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Icon path -->
+                    </svg>
+                </button>
+            </div>
+        `;
+        listItem.html(content);
+        container.append(listItem);
+    });
+}
+
+    // Click event handler for Add to Cart button
+    $(document).on('click', '.add-to-cart-btn', function(e) {
+        e.preventDefault();
+        var courseId = $(this).data('course-id');
+        var link = $(this);  // Reference to the link clicked
+
+        $.ajax({
+            type: 'POST',
+            url: link.attr('href'),
+            data: {
+                'course_id': courseId,
+                'csrfmiddlewaretoken': '{{ csrf_token }}'
+            },
+            success: function(data) {
+                if (data.success) {
+                    link.text("Remove from Cart"); // Change link text to Remove from Cart
+                    link.attr('href', '{% url "remove_from_cart" %}'); // Update link URL
+                    link.removeClass('add-to-cart-btn').addClass('remove-from-cart-btn');
+                    alert('Course added to cart successfully.');
+                    fetchCartItems();
+
+                } else {
+                    alert('Failed to add course to cart: ' + data.message);
+                }
+            },
+            error: function(xhr, status, error) {
+                alert('Failed to add course to cart: ' + error);
+            }
+        });
+    });
+
+    // Click event handler for Remove from Cart button
+    $(document).on('click', '.remove-from-cart-btn', function(e) {
+        e.preventDefault();
+        var courseId = $(this).data('course-id');
+        var link = $(this);  // Reference to the link clicked
+
+        $.ajax({
+            type: 'POST',
+            url: link.attr('href'),
+            data: {
+                'course_id': courseId,
+                'csrfmiddlewaretoken': '{{ csrf_token }}'
+            },
+            success: function(data) {
+                if (data.success) {
+                    link.text("Add to Cart"); // Change link text to Add to Cart
+                    link.attr('href', '{% url "add_to_cart" %}'); // Update link URL
+                    link.removeClass('remove-from-cart-btn').addClass('add-to-cart-btn');
+                    alert('Course removed from cart successfully.');
+                    fetchCartItems();
+
+                } else {
+                    alert('Failed to remove course from cart: ' + data.message);
+                }
+            },
+            error: function(xhr, status, error) {
+                alert('Failed to remove course from cart: ' + error);
+            }
+        });
+    });
+});
+
+</script>
+
+
+                        
+           
+                    
+                </div>
+                <!-- PAGINATION
+                ================================================== -->
+     <!-- Pagination links -->
+<nav aria-label="Page navigation">
+    <ul class="pagination justify-content-center">
+        {% if courses.has_previous %}
+            <li class="page-item">
+                {% if courses.has_previous %}
+                <a class="page-link" href="?page={{ courses.previous_page_number }}" aria-label="Previous">
+                    <span aria-hidden="true"><i class="fas fa-arrow-left"></i></span>
+                </a>
+            {% else %}
+                <span class="page-link" aria-hidden="true"><i class="fas fa-arrow-left"></i></span>
+            {% endif %}
+            </li>
+        {% endif %}
+        {% for num in courses.paginator.page_range %}
+            {% if courses.number == num %}
+                <li class="page-item active">
+                    <span class="page-link">{{ num }}</span>
+                </li>
+            {% else %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                </li>
+            {% endif %}
+        {% endfor %}
+        {% if courses.has_next %}
+            <li class="page-item">
+                {% if courses.has_next %}
+                <a class="page-link" href="?page={{ courses.next_page_number }}" aria-label="Next">
+                    <span aria-hidden="true"><i class="fas fa-arrow-right"></i></span>
+                </a>
+            {% else %}
+                <span class="page-link" aria-hidden="true"><i class="fas fa-arrow-right"></i></span>
+            {% endif %}            </li>
+        {% endif %}
+    </ul>
+</nav>
+
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+

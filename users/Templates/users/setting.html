@@ -1,0 +1,144 @@
+{% extends 'main_app/dashboard_base.html' %}
+
+        {% block content  %}
+        {% load static %}
+        <head>
+            <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Bootstrap JS Bundle (includes Popper.js) -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+        
+        </head>
+            <!-- Custom CSS -->
+            <style>
+                /* Custom styles */
+                .profile-card {
+                    background-color: #f8f9fa;
+                    border: 1px solid #dee2e6;
+                    border-radius: 10px;
+                    padding: 20px;
+                }
+                .profile-card h3 {
+                    font-size: 24px;
+                    color: #007bff;
+                    margin-bottom: 20px;
+                }
+                .profile-card .form-label {
+                    font-weight: bold;
+                    color: #495057;
+                }
+                .profile-card .form-control {
+                    border: none;
+                    background-color: transparent;
+                    border-bottom: 1px solid #ced4da;
+                    border-radius: 0;
+                    margin-bottom: 20px;
+                }
+                .profile-card .btn-primary {
+                    background-color: #007bff;
+                    border-color: #007bff;
+                    border-radius: 20px;
+                }
+                .profile-card .btn-primary:hover {
+                    background-color: #0056b3;
+                    border-color: #0056b3;
+                }
+                .profile-picture {
+                width: 150px;
+                height: 150px;
+                border-radius: 50%; /* To make it circular */
+}
+            </style>
+        <div class="content-body">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+                        <form action="#" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                        <div class="profile-card"> 
+                            <h3 class="text-center">User Profile</h3>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="first_name" class="form-label">First Name:</label>
+                                    <input type="text" name="{{user_form.first_name.name}}" class="form-control" id="first_name" value="{{user_form.first_name.value}}" >
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="last_name" class="form-label">Last Name:</label>
+                                    <input type="text" name="{{user_form.last_name.name}}"  class="form-control" id="last_name" value="{{user_form.last_name.value}}" >
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email:</label>
+                                <input type="email" name="{{user_form.email.name}}"  class="form-control" id="email" value="{{user_form.email.value}}" >
+                            </div>
+                            <div class="mb-3">
+                                <label for="gender" class="form-label">Gender:</label>
+                                <select class="form-select" id="gender" name="{{ profile_form.gender.name }}">
+                                    {% for value, label in profile_form.fields.gender.choices %}
+                                    <option value="{{ value }}" {% if value == profile_form.instance.gender %}selected{% endif %}>{{ label }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="country" class="form-label">Country:</label>
+                                <input type="text"  name="{{ profile_form.country.name }}" class="form-control" id="country" value="{{ profile_form.country.value }}" >
+                            </div>
+                            <div class="mb-3">
+                                <label for="address" class="form-label">Address:</label>
+                                <input type="text" name="{{ profile_form.address.name }}" class="form-control" id="address" value="{{ profile_form.address.value }}" >
+                            </div>
+                            <div class="mb-3">
+                                <label for="about_me" class="form-label">About:</label>
+                                <input type="text" name="{{ profile_form.about_me.name }}" class="form-control" id="about_me" value="{{ profile_form.about_me.value }}" >
+                            </div>
+                            <div class="mb-3">
+                                <label for="profile_picture" class="form-label">Profile Picture:</label>
+                                {% if request.user.profile.profile_picture %}
+                                    <input type="file" name="{{profile_form.profile_picture.name}}" id="profile_picture_url" value="{{ request.user.profile.profile_picture.url }}"  onchange="previewImage(event)">
+                                {% endif %}                                
+                                <img id="profile_picture_preview" src="{{ request.user.profile.profile_picture.url }}" alt="Profile Picture" class="img-fluid mt-2" style="max-width: 200px;">
+                                
+                                <script>
+                                    function previewImage(event) {
+                                        var input = event.target;
+                                        var reader = new FileReader();
+                                
+                                        reader.onload = function() {
+                                            var img = document.getElementById('profile_picture_preview');
+                                            img.src = reader.result;
+                                            img.style.display = 'block';
+                                        };
+                                
+                                        reader.readAsDataURL(input.files[0]);
+                                    }
+                                </script>
+                                                                
+                             
+                                                            </div>
+                            <!-- Add more profile fields as needed -->
+                            <div class="text-center">
+                             
+                                <input type="submit" class="btn btn-primary" class="form-control" id="" value="Save Changes" >
+
+                            </div>
+                        </div>
+                    </div>
+                    {% if form.errors %}
+<div class="alert alert-danger">
+    {% for field, errors in form.errors.items %}
+        {% for error in errors %}
+            {{ field }}: {{ error }}
+        {% endfor %}
+    {% endfor %}
+</div>
+{% endif %}
+                </form>
+                </div>
+        
+            </div>
+       
+        </div>
+        
+        {% endblock %}
+        

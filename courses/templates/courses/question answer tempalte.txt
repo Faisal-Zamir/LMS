@@ -1,0 +1,51 @@
+    <div class="container mt-5">
+                    <!-- Question Section -->
+                    <div id="questions">
+                        {% for question in lecture_questions %}
+                        <!-- Existing Questions -->
+                        <div class="question-box">
+                            <h5>{{ question.question_text }}</h5>
+                            <!-- Answer Form (Hidden by default) -->
+                            <div class="answer-form mt-3" style="display: none;">
+                                <form method="post" id="answerForm">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="question_id" value="{{ question.id }}">
+                                    <div class="form-group">
+                                        <label for="answer-text">Answer:</label>
+                                        <textarea class="form-control" id="answer-text" name="{{ answer_form.answer_text.name }}" rows="3" placeholder="Write your answer here"></textarea>
+                                    </div>
+                                    <button type="submit" name="answerForm" class="btn btn-sm btn-primary">Submit</button>
+                                </form>
+                            </div>
+                            <!-- Existing Answers -->
+                            {% for answer in question.answer_set.all %}
+                            <div class="answer-box mt-3">
+                                <p>{{ answer.answer_text }}</p>
+                            </div>
+                            {% endfor %}
+                            <!-- Answer Button -->
+                            <button class="btn btn-sm btn-primary answer-btn">Answer</button>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <!-- Question Form -->
+                    <div class="mt-5">
+                        <h4>Ask a Question</h4>
+                        <form id="questionForm" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="lecture_id" value="{{ lecture.id }}">
+                            <div class="form-group">
+                                <label for="question">Question:</label>
+                                <textarea class="form-control" name="{{ question_form.question_text.name }}" rows="5" id="question" placeholder="Write your question here"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary" name="questionForm">Submit</button>
+                        </form>
+                    </div>
+                </div>
+                
+                <script>
+   // Show Answer Form
+   $(".answer-btn").click(function () {
+        $(this).siblings('.answer-form').toggle();
+    });
+        </script>

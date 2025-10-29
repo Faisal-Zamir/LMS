@@ -1,0 +1,127 @@
+
+{% extends 'main_app/base.html' %}
+
+{% block content %}
+{% load static %}
+
+
+
+    <!-- SHOP CHECKOUT
+    ================================================== -->
+
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout Page</title>
+    <style>
+        /* Custom Styles */
+        .order-details {
+            background-color: #f9f9f9;
+            padding: 20px;
+        }
+        .payment-methods {
+            padding: 20px;
+        }
+        @media (min-width: 768px) {
+            .order-details {
+                padding: 40px;
+            }
+            .payment-methods {
+                padding: 40px;
+            }
+        }
+    </style>
+    </head>
+    <body>
+    
+    <div class="container pb-6 pb-xl-10">
+        <div class="row">
+            <!-- Order Details Column -->
+            <div class="col-md-6 order-details">
+                <h3>Your Order</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Product</th>
+                            <th scope="col">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in user_cart_items %}
+                        {% for course in item.courses.all %}                      <tr>
+                            <td>{{ course.title }} </td>
+                            <td>${{ course.offer_price }}</td>
+                        </tr>
+                        {% endfor %}
+                        {% endfor %}
+
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th scope="row">Subtotal</th>
+                            <td>${{ subtotal }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Total</th>
+                            <td>${{ total }}</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+    
+            <!-- Payment Methods Column -->
+            <div class="col-md-6 payment-methods">
+                <h3>Payment Methods</h3>
+                <ul class="list-unstyled">
+                    <li>
+                        <input id="payment_method_bacs" type="radio" class="input-radio" name="payment_method" value="bacs">
+                        <label for="payment_method_bacs">Direct bank transfer</label>
+                        <div class="payment-box" style="display: none;">
+                            <p>Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order won’t be shipped until the funds have cleared in our account.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <input id="payment_method_cheque" type="radio" class="input-radio" name="payment_method" value="cheque">
+                        <label for="payment_method_cheque">Check payments</label>
+                        <div class="payment-box d-none">
+                            <p>Please send a check to Store Name, Store Street, Store Town, Store State / County, Store Postcode.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <input id="payment_method_cod" type="radio" class="input-radio" name="payment_method" value="cod" checked="checked">
+                        <label for="payment_method_cod">Cash on delivery</label>
+                        <div class="payment-box d-none">
+                            <p>Pay with cash upon delivery.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <input id="payment_method_paypal" type="radio" class="input-radio" name="payment_method" value="paypal">
+                        <label for="payment_method_paypal">PayPal</label>
+                        <div class="payment-box d-none">
+                            <p>Pay via PayPal; you can pay with your credit card if you don’t have a PayPal account.</p>
+                        </div>
+                    </li>
+                </ul>
+                <div class="form-row place-order">
+                    <a href="shop-order-completed.html" class="btn btn-primary btn-block">PLACE ORDER</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('input[type="radio"]').click(function(){
+                var inputValue = $(this).attr("value");
+                var targetBox = $("." + inputValue);
+                $(".payment-box").not(targetBox).hide();
+                $(targetBox).show();
+            });
+        });
+    </script>
+    
+    </body>
+ 
+    {% endblock %}
+
